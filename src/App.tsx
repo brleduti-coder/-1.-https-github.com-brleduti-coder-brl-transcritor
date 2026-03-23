@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { useState, FormEvent, useEffect } from 'react';
+import { useState, FormEvent } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Link, Send, CheckCircle2, Loader2, ExternalLink, AlertCircle, Play, Sparkles, Layers, Zap, Instagram, Youtube, Globe, X } from 'lucide-react';
 
@@ -33,13 +33,6 @@ export default function App() {
   const [isLoading, setIsLoading] = useState(false);
   const [response, setResponse] = useState<{ message: string; link?: string } | null>(null);
   const [error, setError] = useState<string | null>(null);
-
-  // Debug log for response state
-  useEffect(() => {
-    if (response) {
-      console.log('Response state updated:', response);
-    }
-  }, [response]);
 
   const fetchVideoTitle = async (url: string) => {
     try {
@@ -84,7 +77,6 @@ export default function App() {
       }
 
       const text = await res.text();
-      console.log('Webhook response:', text);
       
       let message = '';
       let folderLink = '';
@@ -128,8 +120,12 @@ export default function App() {
       {/* Success Modal / Popup */}
       <AnimatePresence>
         {response && response.link && (
-          <div key="success-modal" className="fixed inset-0 z-[100] flex items-center justify-center p-6">
+          <motion.div 
+            key="success-modal-container"
+            className="fixed inset-0 z-[100] flex items-center justify-center p-6"
+          >
             <motion.div
+              key="modal-backdrop"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
@@ -138,6 +134,7 @@ export default function App() {
             />
             
             <motion.div
+              key="modal-content"
               initial={{ opacity: 0, scale: 0.9, y: 20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.9, y: 20 }}
@@ -189,7 +186,7 @@ export default function App() {
                 </p>
               </div>
             </motion.div>
-          </div>
+          </motion.div>
         )}
       </AnimatePresence>
       {/* Background Layers */}
@@ -347,6 +344,7 @@ export default function App() {
                   <AnimatePresence mode="wait">
                     {error && (
                       <motion.div
+                        key="error-message-box"
                         initial={{ opacity: 0, y: 10 }}
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: -10 }}
