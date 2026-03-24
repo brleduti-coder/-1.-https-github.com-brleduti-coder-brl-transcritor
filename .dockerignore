@@ -1,0 +1,10 @@
+node_modules
+dist
+venv
+backend/venv
+backend/downloads
+backend/transcricoes
+.git
+.env.local
+*.pyc
+__pycache__
