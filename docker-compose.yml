@@ -1,0 +1,26 @@
+services:
+  frontend:
+    build:
+      context: .
+      args:
+        VITE_API_URL: ""
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+
+  backend:
+    build:
+      context: ./backend
+    ports:
+      - "8000:8000"
+    env_file:
+      - ./backend/.env
+    environment:
+      - FRONTEND_ORIGIN=http://localhost
+      - BASE_URL=http://localhost:8000
+    volumes:
+      - transcricoes:/app/transcricoes
+
+volumes:
+  transcricoes:

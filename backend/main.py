@@ -21,7 +21,7 @@ FRONTEND_ORIGIN = os.getenv("FRONTEND_ORIGIN", "http://localhost:3000")
 BASE_URL = os.getenv("BASE_URL", "http://localhost:8000")
 
 VENV_BIN = Path(sys.executable).parent
-YT_DLP = str(VENV_BIN / "yt-dlp")
+YT_DLP = str(VENV_BIN / "yt-dlp") if (VENV_BIN / "yt-dlp").exists() else (shutil.which("yt-dlp") or "yt-dlp")
 DOWNLOAD_DIR = Path(__file__).parent / "downloads"
 TRANSCRICOES_DIR = Path(__file__).parent / "transcricoes"
 DOWNLOAD_DIR.mkdir(exist_ok=True)
