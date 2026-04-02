@@ -3,9 +3,7 @@ import { createPortal } from 'react-dom';
 import { motion, AnimatePresence } from 'motion/react';
 import { Loader2, Download, Share2, Check, X, ArrowRight } from 'lucide-react';
 
-const WEBHOOK_URL = import.meta.env.VITE_API_URL
-  ? `${import.meta.env.VITE_API_URL}/webhook/transcrever-video/sync`
-  : '/webhook/transcrever-video/sync';
+const WEBHOOK_URL = '/webhook/transcrever-video/sync';
 
 export default function App() {
   const [videoUrl, setVideoUrl] = useState('');
