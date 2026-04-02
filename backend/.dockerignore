@@ -1,0 +1,6 @@
+venv/
+downloads/
+transcricoes/
+__pycache__/
+*.pyc
+.env
